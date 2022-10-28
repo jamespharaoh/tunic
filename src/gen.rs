@@ -65,17 +65,19 @@ pub fn gen_words_table (out: & mut dyn Write) -> io::Result <()> {
 }
 
 pub fn gen_page () {
-	let src = File::open ("static/index.html").unwrap ();
-	let mut dst = File::create ("target/site/index.html").unwrap ();
-	for line in BufReader::new (src).lines () {
-		let line = line.unwrap ();
-		if line.trim () == "{WORDS}" {
-			gen_words_table (& mut dst).unwrap ();
-		} else {
-			write! (& mut dst, "{line}\n").unwrap ();
+	for name in [ "index", "spoiler" ] {
+		let src = File::open (format! ("static/{name}.html")).unwrap ();
+		let mut dst = File::create (format! ("target/site/{name}.html")).unwrap ();
+		for line in BufReader::new (src).lines () {
+			let line = line.unwrap ();
+			if line.trim () == "{WORDS}" {
+				gen_words_table (& mut dst).unwrap ();
+			} else {
+				write! (& mut dst, "{line}\n").unwrap ();
+			}
 		}
+		dst.flush ().unwrap ();
 	}
-	dst.flush ().unwrap ();
 }
 
 fn gen_name (glyphs: & [Glyph]) -> String {

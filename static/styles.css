@@ -1,3 +1,7 @@
+* {
+	font-family: inherit;
+	font-size: inherit;
+}
 body {
 	font-family: sans-serif;
 	font-size: 18px;
@@ -39,4 +43,7 @@ h3 {
 }
 p {
 	margin: 20px;
+}
+input[type=submit] {
+	padding: 5px 10px;
 }
