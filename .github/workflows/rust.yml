@@ -1,0 +1,90 @@
+name: rust
+
+on:
+
+  push:
+    branches: [ master ]
+
+  pull_request:
+    branches: [ master ]
+
+  schedule:
+    - cron: "33 3 * * *"
+
+env:
+
+  CARGO_TERM_COLOR: always
+
+jobs:
+
+  site:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Tooling cache
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/tooling
+          key: site-tooling
+
+      - name: Install tooling
+        run: |
+          rustup self uninstall -y
+          export RUSTUP_HOME="$HOME/tooling/rustup"
+          export CARGO_HOME="$HOME/tooling/cargo"
+          export PATH="$CARGO_HOME/bin:$PATH"
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+            | sh -s -- --profile minimal --component clippy --default-toolchain stable -y
+          rustup install stable
+          echo "RUSTUP_HOME=$RUSTUP_HOME" >>$GITHUB_ENV
+          echo "CARGO_HOME=$CARGO_HOME" >>$GITHUB_ENV
+          echo "$CARGO_HOME/bin" >>$GITHUB_PATH
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build site
+        uses: actions-rs/cargo@v1
+        with:
+          command: run
+          args: --release
+
+      - name: Prepare artifact
+        run: |
+          cd target
+          tar --create --gzip --file site.tar.gz site
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: site.tar.gz
+          path: target/site.tar.gz
+
+  pages:
+    runs-on: ubuntu-latest
+    needs: [ site ]
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: github-pages
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: site.tar.gz
+          path: target
+
+      - name: Prepare pages
+        run: |
+          tar --extract --gzip --file target/site.tar.gz --directory target
+          rsync --archive --delete target/site/ ./ --exclude .git/ --exclude target/
+
+      - name: Update pages
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add --all .
+          git commit -m 'automatic update by github workflow'
+          git push
