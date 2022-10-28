@@ -79,7 +79,7 @@ jobs:
       - name: Prepare pages
         run: |
           tar --extract --gzip --file target/site.tar.gz --directory target
-          rsync --archive --delete target/site/ ./ --exclude .git/ --exclude target/
+          rsync --archive --delete target/site/ ./ --exclude .git/ --exclude target/ --exclude .gitignore
 
       - name: Update pages
         run: |
