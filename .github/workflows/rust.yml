@@ -11,6 +11,11 @@ on:
   schedule:
     - cron: "33 3 * * *"
 
+concurrency:
+
+  group: "rust"
+  cancel-in-progress: true
+
 env:
 
   CARGO_TERM_COLOR: always
@@ -86,5 +91,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add --all .
-          git commit -m 'automatic update by github workflow'
-          git push
+          if ! git diff --exit-code >/dev/null; then
+            git commit -m 'automatic update by github workflow'
+            git push
+          fi
