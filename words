@@ -4,20 +4,23 @@
 -s          z               (common suffix)
 -s          s               (common suffix) (after f, k, p, t)
 a           ə
+an          ən
 above       əb/ʌv
 action      ak/ʃə/n
 adventure   ad/vε/n/tʃ/ər
 after       af/tər
 all         ɔl
+allow       əl/aʊ
 also        ɔl/soʊ
 although    ɔl/ðoʊ
 and         ən/d
+another     ən/ʌð/ər
 any         εn/i
 are         ɑr
 around      ə/raʊ/n/d
 as          az
 at          at
-away        ʌ/weɪ           (TODO why grouped like this?)
+away        ʌ/weɪ
 be          bi
 beacon      bi/kɪ/n
 because     bi/kʌ/z         (as written in game)
@@ -34,7 +37,7 @@ beneath     bɪ/ni/θ         (native pronunciation)
 bell        bε/l
 big         bɪ/g
 book        bʊ/k
-bottom      bɔ/tə/m
+bottom      bɒ/tə/m
 brief       b/ri/f
 but         bʌ/t
 button      bʌ/tɪ/n
@@ -47,6 +50,7 @@ card        kɑr/d/z
 careful     kεər/fʊ/l
 cathedral   kə/θi/d/rʊ/l
 certain     sər/tɪ/n
+chance      tʃa/n/s
 check       tʃε/k
 close       k/loʊ/s          (adjective/adverb)
 coin        kɔɪ/n
@@ -54,16 +58,21 @@ consume     kə/n/su/m
 corners     kɔr/nər
 cycle       saɪ/kʊ/l
 danger      deɪ/n/dʒər
+dangerous   deɪ/n/dʒər/ʌs
 day         deɪ
 depth       dε/p/θ
 do          du
 does        dʌ/z
 done        dʌ/n
+door        dɔr
 dow-        daʊ             (abbreviation for down)
 down        daʊ/n
 don't       doʊ/n/t
+drop        d/rɒ/p
+each        itʃ
 earth       ərθ
 eas-        is              (abbreviation for east)
+eat         it
 empty       εm/p/ti
 enough      in/ʌf           (as written in game)
 enough      ɪn/ʌf           (native pronunciation)
@@ -77,31 +86,33 @@ everything  εv/ri/θɪ/ŋ      (native pronunciation)
 everywhere  εv/εər/i/wεər   (as written in game)
 everywhere  εv/ri/wεər      (native pronunciation)
 eye         aɪ
-exhaust     εk/zɔ/s/t       (as written in game)
-exhaust     ɪg/zɔ/s/t       (native pronunciation)
 face        feɪ/s
 fight       faɪ/t
 fill        fɪ/l
 final       faɪ/nʊ/l
 find        faɪ/n/d
+fire        faɪ/ər
 first       fər/s/t
 focus       foʊ/kə/s
 foe         foʊ
 for         fɔr
 forbidden   fɔr/bɪ/dɪ/n     (as written in game)
 forbidden   fɔr/bɪ/də/n     (native pronunciation)
-forest      fɔr/ɪs/t
+forest      fɒr/ɪs/t
 fortress    fɔr/t/rε/s      (as written in game)
 fortress    fɔr/t/rɪ/s      (native pronunciation)
 found       faʊ/n/d
-frog        f/rɔ/g
+frog        f/rɒ/g
 from        f/rə/m
+fruit       f/ru/t
 gain        geɪ/n
 garden      gɑr/dɪ/n        (as written in game)
 garden      gɑr/də/n        (native pronunciation)
 get         gε/t
+give        gɪ/v
 go          goʊ
-god         gɔ/d
+god         gɒ/d
+goes        goʊ/z
 golden      goʊ/l/dɪ/n      (as written in game)
 golden      goʊ/l/də/n      (as written in game)
 grave       g/reɪ/v
@@ -133,26 +144,30 @@ I've        aɪv
 just        dʒʌ/s/t
 key         ki
 know        noʊ
-knowledge   nɔ/lε/dʒ        (as written in game)
-knowledge   nɔ/lɪ/dʒ        (native pronunciation)
+knowledge   nɒ/lε/dʒ        (as written in game)
+knowledge   nɒ/lɪ/dʒ        (native pronunciation)
 known       noʊ/n
 lair        lεər
 large       lɑr/dʒ
 le-         lε              (abbreviation for left)
 learn       lər/n
 leave       li/v
+left        lε/f/t
+less        lε/s
 library     laɪ/b/rεər/i    (as written in game)
 library     laɪ/b/rε/ri     (native pronunciation)
+life        laɪ/f
 light       laɪ/t
 listen      lɪ/sɪ/n         (as written in game)
 listen      lɪ/sə/n         (as written in game)
 live        lɪ/v            (verb)
 lives       laɪ/v/z         (noun)
 local       loʊ/kʊ/l
-long        lɔ/ŋ
+long        lɒ/ŋ
 look        lʊ/k
 lost        lʊ/s/t
 machine     mə/ʃi/n
+made        meɪ/d
 magic       ma/dʒɪ/k
 make        meɪ/k
 many        mε/ni
@@ -160,7 +175,7 @@ maybe       meɪ/bi
 me          mi
 moment      moʊ/mɪ/n/t      (as written in game)
 moment      moʊ/mə/n/t      (native pronunciation)
-monster     mɔ/n/s/tər
+monster     mɒ/n/s/tər
 more        mɔr
 move        mu/v
 much        mʌ/tʃ
@@ -169,19 +184,26 @@ nearby      nɪər/baɪ
 need        ni/d
 never       nε/vər
 no          noʊ
-nor-        nɔ              (abbreviation for north)
-not         nɔ/t
+nor-        nɔr             (abbreviation for north)
+not         nɒr/t
 nothing     nʌ/θɪ/ŋ
 now         naʊ
-obtain      ɔb/teɪ/n
+number      nʌ/m/bər
+obtain      ɒb/teɪ/n        (as written in game)
+obtain      əb/teɪ/n        (native pronunciation)
 of          ʌv
-offer       ɔf/ər
+offer       ɒf/ər
+often       ɒf/tɪ/n
+often       ɒf/ən           (native pronunciation)
+old         oʊl/d
 oh          oʊ
-on          ɔn
+on          ɒn
 once        wʌ/n/s
 one         wʌ/n
 only        oʊn/li
-or          ɔr
+open        oʊp/ɪn          (as written in game)
+open        oʊp/ən          (native pronunciation)
+or          ɒr
 other       əð/ər
 out         aʊt
 over        oʊv/ər
@@ -198,7 +220,8 @@ pray        p/reɪ
 prayer      p/reɪ/ər        (as written in game)
 prayer      p/rər           (native pronunciation)
 press       p/rε/s
-quarry      k/wɔr/i
+price       p/raɪ/s
+quarry      k/wɒr/i
 raise       reɪ/z
 ran         ra/n
 reach       ri/tʃ
@@ -206,6 +229,7 @@ read        ri/d
 ready       rε/di
 really      ri/li           (as written in game)
 really      ri/ə/li         (native pronunciation)
+refill      ri/fɪ/l/z
 remember    ri/mε/m/bər     (as written in game)
 remember    rɪ/mε/m/bər     (native pronunciation)
 represent   rε/p/ri/zε/n/t  (as written in game)
@@ -219,6 +243,7 @@ rough       rʌ/f
 ruin        ru/ɪn
 run         rʌ/n
 safe        seɪ/f
+said        sε/d
 same        seɪ/m
 secret      si/k/rɪ/t
 see         si
@@ -237,13 +262,17 @@ someone     sʌ/m/wʌ/n
 sou-        saʊ             (abbreviation for south)
 soul        soʊ/l
 sound       saʊ/n/d
+special     s/pε/ʃʊ/l
 stamina     s/ta/mɪ/nə
 start       s/tɑr/t
 stay        s/teɪ
 still       s/tɪ/l
-stop        s/tɔ/p
+stop        s/tɒ/p
 strike      s/t/raɪ/k
-strong      s/t/rɔ/ŋ
+strange     s/t/reɪ/n/dʒ
+strong      s/t/rɒ/ŋ
+sure        ʃər             (as written in game)
+sure        ʃʊ/ər           (native pronunciation)
 summon      sʌ/mɪ/n         (as written in game)
 summon      sʌ/mə/n         (native pronunciation)
 sword       sɔr/d
@@ -282,9 +311,9 @@ vulnerable  vʊ/l/nər/əb/ʊl  (as written in game)
 vulnerable  vʌ/l/nər/əb/ʊl  (native pronunciation)
 wait        weɪ/t
 walk        wɔ/k
-want        wɔ/n/t
+want        wɒ/n/t
 was         wʌ/z
-watch       wɔ/tʃ
+watch       wɒ/tʃ
 water       wɔ/tər
 we          wi
 we-         wε              (abbreviation for west)
@@ -302,6 +331,7 @@ with        wɪ/θ            (as written in game)
 with        wɪ/ð            (native pronunciation)
 without     wɪ/θaʊ/t        (as written in game)
 without     wɪ/ðaʊ/t        (native pronunciation)
+world       wər/l/d
 would       wʊ/d
 you         yu
 you're      yɔr

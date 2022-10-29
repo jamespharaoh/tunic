@@ -2,8 +2,8 @@ use std::fs::File;
 use std::io::{ BufRead as _, BufReader };
 use std::iter;
 
-pub fn load_words () -> impl Iterator <Item = (String, String, String)> {
-	let file = File::open ("words").unwrap ();
+pub fn load_words (path: & str) -> impl Iterator <Item = (String, String, String)> {
+	let file = File::open (path).unwrap ();
 	let mut lines_iter = BufReader::new (file).lines ();
 	iter::from_fn (move || {
 		let line = lines_iter.next () ?.unwrap ();

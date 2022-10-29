@@ -1,9 +1,72 @@
+use io::Write;
 use raqote::*;
 
 use super::*;
 
+pub fn draw_svg (out: & mut dyn Write, glyphs: & [Glyph]) -> io::Result <()> {
+	write! (out,
+		"<svg viewBox=\"0 0 {view_width} 180\">\
+		<path d=\"",
+		view_width = 80 * glyphs.len () + 10) ?;
+	let mut first = true;
+	for (pos, & glyph) in glyphs.iter ().enumerate () {
+		let pos = pos as i32;
+		if ! first { write! (out, " ") ?; }
+		draw_svg_segments (out, pos, glyph.segments () | 0b_10_0000000_00000) ?;
+		first = false;
+	}
+	write! (out, "\"/></svg>") ?;
+	Ok (())
+}
+
+pub fn draw_svg_segments (out: & mut dyn Write, pos: i32, segs: u16) -> io::Result <()> {
+	let mut first = true;
+	if segs & 0b_01_0000000_00000 != 0 {
+		let flip_top = FLIP_TOP.offset (pos);
+		let flip_left = FLIP_LEFT.offset (pos);
+		write! (out,
+			"M {} {} \
+			A {FLIP_RADIUS} {FLIP_RADIUS} 0 0 0 {} {} \
+			A {FLIP_RADIUS} {FLIP_RADIUS} 0 1 0 {} {}",
+			flip_top.x, flip_top.y,
+			flip_left.x, flip_left.y,
+			flip_top.x, flip_top.y,
+		) ?;
+		first = false;
+	}
+	let mut prev = Point { x: f32::MIN, y: f32::MIN };
+	for (bit, start, end) in [
+		(0b_10_0000000_00000, MIDDLE_LEFT, MIDDLE_RIGHT),
+		(0b_00_1000000_00000, UPPER_LEFT, UPPER_BOTTOM),
+		(0b_00_0100000_00000, UPPER_TOP, UPPER_BOTTOM),
+		(0b_00_0010000_00000, UPPER_RIGHT, UPPER_BOTTOM),
+		(0b_00_0001000_00000, UPPER_BOTTOM, LOWER_TOP),
+		(0b_00_0000100_00000, LOWER_TOP, LOWER_LEFT),
+		(0b_00_0000010_00000, LOWER_TOP, LOWER_BOTTOM),
+		(0b_00_0000001_00000, LOWER_TOP, LOWER_RIGHT),
+		(0b_00_0000000_10000, UPPER_RIGHT, UPPER_TOP),
+		(0b_00_0000000_01000, UPPER_TOP, UPPER_LEFT),
+		(0b_00_0000000_00100, UPPER_LEFT, LOWER_LEFT),
+		(0b_00_0000000_00010, LOWER_LEFT, LOWER_BOTTOM),
+		(0b_00_0000000_00001, LOWER_BOTTOM, LOWER_RIGHT),
+	] {
+		if segs & bit == 0 { continue }
+		let start = start.offset (pos);
+		let end = end.offset (pos);
+		if ! first { write! (out, " ") ?; }
+		if start != prev {
+			write! (out, "M {} {} L {} {}", start.x, start.y, end.x, end.y) ?;
+		} else {
+			write! (out, "{} {}", end.x, end.y) ?;
+		}
+		first = false;
+		prev = end;
+	}
+	Ok (())
+}
+
 pub fn draw_sound (target: & mut DrawTarget, pos: i32, sound: Sound) {
-	let segs = sound_segments (sound);
+	let segs = sound.segments ();
 	if segs & 0b_1000000_00000 != 0 { draw_segment (target, pos, UPPER_LEFT, UPPER_BOTTOM); }
 	if segs & 0b_0100000_00000 != 0 { draw_segment (target, pos, UPPER_TOP, UPPER_BOTTOM); }
 	if segs & 0b_0010000_00000 != 0 { draw_segment (target, pos, UPPER_RIGHT, UPPER_BOTTOM); }
@@ -23,7 +86,7 @@ pub fn draw_middle (target: & mut DrawTarget, pos: i32) {
 }
 
 pub fn draw_flip (target: & mut DrawTarget, pos: i32) {
-	let point = FLIP_POS.offset (pos);
+	let point = FLIP_MIDDLE.offset (pos);
 	let mut path = PathBuilder::new ();
 	path.arc (point.x, point.y, FLIP_RADIUS, 0.0, 360.0);
 	let path = path.finish ();
@@ -54,7 +117,7 @@ fn draw_path (target: & mut DrawTarget, path: Path) {
 		& DrawOptions::new ());
 }
 
-#[ derive (Clone, Copy) ]
+#[ derive (Clone, Copy, PartialEq) ]
 struct Point { x: f32, y: f32 }
 
 impl Point {
@@ -91,30 +154,6 @@ const LOWER_TOP: Point = Point { x: X_MIDDLE, y: Y_LOWER_TOP };
 const LOWER_LEFT: Point = Point { x: X_LEFT, y: Y_LOWER_MIDDLE };
 const LOWER_RIGHT: Point = Point { x: X_RIGHT, y: Y_LOWER_MIDDLE };
 const LOWER_BOTTOM: Point = Point { x: X_MIDDLE, y: Y_LOWER_BOTTOM };
-const FLIP_POS: Point = Point { x: X_MIDDLE, y: Y_FLIP };
-
-fn sound_segments (sound: Sound) -> u16 {
-	match sound {
-		M   => 0b_0000101_00000, W   => 0b_1010000_00000,
-		P   => 0b_0011010_00000, B   => 0b_0101001_00000,
-		CH  => 0b_1001010_00000, J   => 0b_0101100_00000,
-		Y   => 0b_1101010_00000, L   => 0b_0101010_00000,
-		R   => 0b_0111010_00000, H   => 0b_0101011_00000,
-		F   => 0b_0011110_00000, V   => 0b_1101001_00000,
-		K   => 0b_0111001_00000, G   => 0b_0011011_00000,
-		S   => 0b_0111110_00000, Z   => 0b_1101011_00000,
-		T   => 0b_1011010_00000, D   => 0b_0101101_00000,
-		TH  => 0b_1111010_00000, DH  => 0b_0101111_00000,
-		SH  => 0b_1011111_00000, ZH  => 0b_1111101_00000,
-		N   => 0b_1000101_00000, NG  => 0b_1111111_00000,
-		E   => 0b_0000000_11000, I   => 0b_0000000_00011,
-		O   => 0b_0000000_01100, U   => 0b_0000000_00110,
-		UU  => 0b_0000000_11110, II  => 0b_0000000_01111,
-		A   => 0b_0000000_11100, EE  => 0b_0000000_00111,
-		OR  => 0b_0000000_11101, ER  => 0b_0000000_10111,
-		EER => 0b_0000000_00101, IER => 0b_0000000_01101,
-		OU  => 0b_0000000_11111, AR  => 0b_0000000_11011,
-		EI  => 0b_0000000_01000, OI  => 0b_0000000_00010,
-		AI  => 0b_0000000_10000, AU  => 0b_0000000_00001,
-	}
-}
+const FLIP_MIDDLE: Point = Point { x: X_MIDDLE, y: Y_FLIP };
+const FLIP_TOP: Point = Point { x: X_MIDDLE, y: Y_FLIP - FLIP_RADIUS };
+const FLIP_LEFT: Point = Point { x: X_MIDDLE - FLIP_RADIUS, y: Y_FLIP };

@@ -23,10 +23,10 @@ table.vowels td {
 	height: 80px;
 	font-size: 30px;
 }
-table.words td {
+table.words td, table.names td {
 	font-size: 30px;
 }
-table.words td.image {
+table.words td.image, table.names td.image {
 	height: 80px;
 }
 h1 {
@@ -46,4 +46,13 @@ p {
 }
 input[type=submit] {
 	padding: 5px 10px;
+}
+svg {
+	height: 60px;
+}
+svg path {
+	fill: none;
+	stroke: black;
+	stroke-linecap: round;
+	stroke-width: 8px;
 }
