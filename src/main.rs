@@ -30,9 +30,7 @@ fn main () {
 
 	fs::create_dir_all ("target/site").unwrap ();
 
-	gen_page ();
-	gen_sounds ();
-	gen_words ();
+	gen_pages ();
 
 	fs::copy ("static/styles.css", "target/site/styles.css").unwrap ();
 

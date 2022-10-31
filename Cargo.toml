@@ -6,4 +6,5 @@
 
 [dependencies]
 
-	raqote = "*"
+	lazy_static = "*"
+	regex = "*"
